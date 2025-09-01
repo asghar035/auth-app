@@ -12,7 +12,7 @@ require("./models/db");
 const PORT = process.env.PORT || 8080;
 
 
-
+console.log("chGAGAG")
 app.use(bodyParser.json());
 app.use(cors());
 app.use("/api/auth",AuthRouter);
