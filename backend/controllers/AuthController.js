@@ -4,7 +4,6 @@ const jwt = require("jsonwebtoken");
 
 const signup = async (req, res) => {
   try {
-    console.log("signup is ok")
     const { name, email, password } = req.body;
     const user = await UserModel.findOne({ email });
     if (user) {
@@ -22,7 +21,6 @@ const signup = async (req, res) => {
 };
 const login = async (req, res) => {
   try {
-    console.log("tst login")
     const { email, password } = req.body;
     const user = await UserModel.findOne({ email });
     console.log(`${user}`)
@@ -35,20 +33,17 @@ const login = async (req, res) => {
     if (!isPassEqual) {
       return res.status(403).json({ message: errorMsg, success: false });
     }
-
     const jwtToken = jwt.sign(
       { email: user.email, _id: user._id },
       process.env.JWT_SECRET,
       { expiresIn: "24h" }
     );
-
     res.status(200).json({
       message: "Login success",
       success: true,
       jwtToken,
       email,
       name: user.name,
-    
     });
   } catch (error) {
     console.log(error)
